@@ -1,5 +1,5 @@
 name: code_quality.yml
-on: [push, pull_request, workflow_dispatch]
+on: [push, workflow_dispatch]
 permissions:
   contents: read
 jobs:
@@ -15,7 +15,7 @@ jobs:
         with:
           dotnet-version: "10.x"
       - name: Restore
-        run: dotnet restore "Beyond The Worlds.sln"
+        run: dotnet restore .
       - name: Tool Restore
         run: dotnet tool restore
 
@@ -23,7 +23,7 @@ jobs:
       - name: Verify CSharpier
         run: dotnet csharpier check .
       - name: Verify Analyzers
-        run: dotnet format "Beyond The Worlds.sln" --verify-no-changes
+        run: dotnet format . --verify-no-changes
       - name: Build solution
-        run: dotnet build "Beyond The Worlds.sln" --no-restore
+        run: dotnet build . --no-restore
 
